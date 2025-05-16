@@ -1,0 +1,32 @@
+elastic:
+  host: "elasticsearch"
+  port: 9200
+  index: "threat-alerts"
+  template:
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+      lifecycle:
+        name: threat-alerts-policy
+    mappings:
+      mappings:
+        properties:
+          "@timestamp":
+            type: "date"
+          "type":
+            type: "keyword"
+          "event":
+            type: "object"
+            dynamic: true
+          "severity":
+            type: "integer"
+
+log:
+  file_path: "/app/datasets/cybersecurity_intrusion_data.csv"
+  
+thehive:
+  url: "http://thehive:9000"
+  api_key: "RBXsyfjzTUbXkVE3Iptx5J7Fhzun+J/U"
+
+thresholds:
+  failed_login_attempts: 5

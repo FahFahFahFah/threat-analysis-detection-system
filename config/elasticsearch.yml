@@ -1,0 +1,6 @@
+cluster.name: "threat-analysis-cluster"
+node.name: "threat-analysis-node"
+network.host: 0.0.0.0
+http.port: 9200
+discovery.type: single-node
+xpack.security.enabled: false

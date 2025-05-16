@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Complete</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Threat Analysis Dashboard</h1>
+        <p>Analyze threats, visualize results in Kibana and Elasticsearch, and automate case creation in TheHive.</p>    
+    </header>
+
+    <main>
+        <section class="analysis-complete">
+            <h2>Analysis Complete</h2>
+            <p>The dataset has been successfully analyzed.</p>
+            <p>File analyzed: <strong>{{ file_path.split('/')[-1] }}</strong></p>
+        </section>
+
+        <section class="results-section">
+            <h2>View Results</h2>
+            <div class="integration-links">
+                <a href="/elasticsearch" target="_blank">
+                    <img src="{{ url_for('static', filename='images/elasticsearchlogo.png') }}" alt="Elasticsearch Logo">
+                    <span>See Elasticsearch Alerts</span>
+                </a>
+                <a href="/kibana" target="_blank">
+                    <img src="{{ url_for('static', filename='images/kibanalogo.png') }}" alt="Kibana Logo">
+                    <span>Kibana</span>
+                </a>
+                <a href="/thehive" target="_blank">
+                    <img src="{{ url_for('static', filename='images/thehivelogo.png') }}" alt="TheHive Logo">
+                    <span>TheHive</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Threat Analysis Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

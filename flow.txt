@@ -1,0 +1,59 @@
+┌─────────────────────────┐
+│    Security Log Data    │
+│  (CSV / Log Formats)    │
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│     Log Ingestion       │
+│   - Format parsing      │
+│   - Field extraction    │
+│   - Normalization       │
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│    Detection Engine     │
+├─────────────────────────┤
+│ Failed Login Detection  │◄────────┐
+│ - Threshold checking    │         │
+│ - User/IP evaluation    │         │
+└───────────┬─────────────┘         │
+            │                       │
+            ▼                       │ Rule
+┌─────────────────────────┐         │ Priority
+│ Privilege Escalation    │         │ Logic
+│ Detection               │         │
+│ - Unusual time access   │─────────┘
+│ - Attack signature      │
+│ - Zero failed logins    │
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│     Alert Generation    │
+│ - Type classification   │
+│ - Event enrichment      │
+│ - Severity assignment   │
+└───────────┬─────────────┘
+            │
+            ▼
+┌──────────────────────────────────────────┐
+│              Alert Routing               │
+└──────────────┬─────────────┬─────────────┘
+               │             │
+               ▼             ▼
+┌─────────────────────┐ ┌────────────────────────┐
+│    Elasticsearch    │ │       TheHive          │
+│ - All alert storage │ │ - Critical alerts only │
+│ - Search indexing   │ │ - Summary case         │
+│ - Data retention    │ │ - Individual cases     │
+└─────────┬───────────┘ └────────────┬───────────┘
+          │                          │
+          ▼                          ▼
+┌─────────────────────┐ ┌────────────────────────┐
+│      Kibana         │ │   Analyst Interface    │
+│ - Visualization     │ │ - Case management      │
+│ - Dashboard         │ │ - Investigation        │
+│ - Search interface  │ │ - Response actions     │
+└─────────────────────┘ └────────────────────────┘

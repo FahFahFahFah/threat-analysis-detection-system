@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elasticsearch Alerts</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 2em; }
+        h1 { color: #333; }
+        .cards-container { display: flex; flex-wrap: wrap; gap: 1em; }
+        .alert-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #ccc;
+            padding: 1em;
+            min-width: 300px;
+            max-width: 350px;
+            margin-bottom: 1em;
+            flex: 1 1 300px;
+        }
+        .alert-type { font-weight: bold; color: #0078d4; margin-bottom: 0.5em; }
+        .alert-field { margin-bottom: 0.2em; }
+        .back-btn { display: inline-block; margin-top: 2em; padding: 0.5em 1em; background: #0078d4; color: #fff; border: none; border-radius: 4px; text-decoration: none; }
+        .back-btn:hover { background: #005fa3; }
+    </style>
+</head>
+<body>
+    <h1>Elasticsearch Alerts</h1>
+    <div class="cards-container">
+        {% for hit in alerts.hits.hits %}
+        <div class="alert-card">
+            <div class="alert-type">{{ hit._source.type|capitalize }}</div>
+            {% for key, value in hit._source.event.items() %}
+                <div class="alert-field"><strong>{{ key }}:</strong> {{ value }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <a href="javascript:history.back()" class="back-btn">Back to Analysis</a>
+</body>
+</html>

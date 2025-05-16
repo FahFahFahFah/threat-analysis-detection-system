@@ -1,0 +1,114 @@
+Components
+
+1. Custom Log Analysis Server (Python)
+- Ingests logs
+- Applies detection rules
+- Sends alerts to Elasticsearch
+
+Ingest Kaggle log dataset (CSV, JSON, syslog-style).
+
+Detect:
+
+Many failed logins from same IP/user.
+
+Use of sudo, su, setuid, chmod 777 etc.
+
+
+2. Elastic Stack (ELK)
+- Elasticsearch: Alert indexer
+- Logstash: Optional parsing/transform
+- Kibana: Dashboard & alert visualization
+
+Setup:
+
+docker-compose.yml with Elasticsearch + Kibana
+
+Create an index template threat-alerts
+
+Visualize:
+
+Alert types over time
+
+Top offending IPs
+
+Sudden spikes in sudo usage
+
+3. Threat Intelligence Feeds
+- OSINT integrations (MISP, AbuseIPDB, AlienVault OTX, etc.)
+- Periodic enrichment of IPs/domains seen in logs
+
+Daily/periodic fetch of:
+
+IP reputation (AbuseIPDB, OTX)
+
+IOC lists from MISP feeds
+
+Enrich any IPs in logs/alerts with threat score or context
+
+1. Manager
+2. Dashboard
+
+Key Components
+1. Log collection Module
+Develop a module that can read and parse log files or receive logs over the network.
+
+2. Rule Engine
+Purpose: Analyze collected logs to detect failed logons and privilege escalations.
+
+Implementation: Create a rule engine that applies predefined rules to identify suspicious activities.
+
+3. Alerting System
+Purpose: Generate alerts when suspicious activities are detected.
+
+Implementation: Design a system that formats alerts and sends them to a storage or visualization component.
+
+4. Dashboard Interface
+Purpose: Visualize alerts and system status.
+
+Implementation: Develop a web-based dashboard using frameworks like Kibana or build a custom interface.
+
+To build these components, consider the following libraries and tools:
+
+Log Parsing: pyparsing, regex, or loguru for efficient log parsing.
+
+Rule Engine: Custom rule definitions using Python dictionaries or YAML files.
+
+Alerting: requests for HTTP requests to send alerts to Elasticsearch.
+
+Indexing: Elasticsearch Python client (elasticsearch-py) for storing and querying alerts.
+
+Dashboard: Kibana for visualization or frameworks like Flask or Django for custom dashboards.
+
+Data Flow:
+[Kaggle CSV Logs]
+       ↓ (upload or drop in datasets/)
+[Log Ingestor]
+       ↓ (normalized to dict format)
+[Threat Rules Engine]
+       ↓ (match rules: failed login / sudo)
+[Alert Generator]
+       ↓
+[Elasticsearch] ←→ [Kibana Dashboard]
+
+Typical Flow in Your App
+User uploads dataset
+⬇️
+load_logs loads the data
+⬇️
+detect_failed_logins and detect_privilege_escalation analyze the logs
+⬇️
+Alerts are generated
+⬇️
+(Optional) Alerts are saved to /alerts/*.json
+⬇️
+Alerts are sent to Elasticsearch
+⬇️
+Kibana visualizes the alerts from Elasticsearch
+Summary Table
+Step	Module/File	Output/Action
+1	User uploads CSV	File saved in datasets
+2	log_ingestor.py	Loads logs as Python objects
+3	failed_login_rules.py, privilege_escalation_rules.py	Analyze logs, generate alerts
+4	(Optional) /alerts/*.json	Alerts saved as JSON files
+5	elastic_exporter.py	Alerts sent to Elasticsearch
+6	Kibana	Visualizes alerts from Elasticsearch

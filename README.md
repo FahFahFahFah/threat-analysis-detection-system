@@ -1,12 +1,4 @@
-User Upload
-     ↓
-Detection Engine
-     ↓
-Elasticsearch
-     ↓
-Alert Trigger
-     ↓
-TheHive Case Creation
+User Upload -> Detection Engine -> Elasticsearch -> Alert Trigger -> TheHive Case Creation
 
 
 [1] Failed Login Detection

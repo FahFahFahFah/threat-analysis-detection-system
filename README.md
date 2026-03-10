@@ -1,3 +1,14 @@
+User Upload
+     ↓
+Detection Engine
+     ↓
+Elasticsearch
+     ↓
+Alert Trigger
+     ↓
+TheHive Case Creation
+
+
 [1] Failed Login Detection
 - analysing authentication failure events
     - SSH login failures using rule IDs
